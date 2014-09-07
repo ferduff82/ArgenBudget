@@ -419,26 +419,32 @@ function createCategories (){
 
 /* Remover categorías */
 
-function removeCategories (){
-  var txt="";
-  var c = document.getElementById('category');
-  var selectId = document.getElementById('removeCategoriesContent');
+function removeCategories () {
 
-  for (i=1; i<c.length; i++){
-    txt = txt + "<li>" + c[i].childNodes[0].nodeValue + "</li>";
-  };
+  function readAllCategories() {
+    var txt="";
+    var c = document.getElementById('category');
+    var selectId = document.getElementById('removeCategoriesContent');
 
-  selectId.innerHTML = "<ul id='newUl'>" + txt + "</ul>";
-  var getUlId = document.getElementById("newUl");
+    for (i=1; i<c.length; i++){
+      txt = txt + "<li>" + c[i].childNodes[0].nodeValue + "</li>";
+    };
+    selectId.innerHTML = "<ul id='newUl'>" + txt + "</ul>";
+    remove();
+  }
+  readAllCategories();
 
-  $("li").click(function(){
-    var getIndex = $(this).index()+1;
-    alert("Ha borrado una categoría");
-    var select = document.getElementById('category');
-        select.removeChild(select[getIndex]);
-
-  });
-
+  function remove(){
+    $("li").click(function(){
+      var getIndex = $(this).index()+1;
+      alert("Ha borrado una categoría");
+      var select = document.getElementById('category');
+          select.removeChild(select[getIndex]);
+      $('#newUl').remove(); 
+      readAllCategories();
+    });
+  }
+  
 }
 
 /* Evaluar OnBlur si son números o no */
