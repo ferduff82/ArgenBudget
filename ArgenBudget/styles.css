@@ -7,6 +7,14 @@ p{
   margin-bottom: 0 !important;
 }
 
+li {
+  list-style: none;
+}
+
+ul{
+  padding: 6px;
+}
+
 .coral{
   background-color: coral;
 }

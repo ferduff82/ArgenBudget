@@ -437,11 +437,42 @@ function removeCategories () {
   function remove(){
     $("li").click(function(){
       var getIndex = $(this).index()+1;
-      alert("Ha borrado una categoría");
-      var select = document.getElementById('category');
-          select.removeChild(select[getIndex]);
-      $('#newUl').remove(); 
-      readAllCategories();
+
+      if (confirm("Desea borrar también el contenido de las categorías") == true) {
+        removeCat();
+        removeContent();
+        alert("Categoría y contenido borrados con éxito");
+      } else {
+        removeCat();
+        alert("Categoría borrada con éxito");
+      }
+
+      function removeCat(){
+        var select = document.getElementById('category');
+        select.removeChild(select[getIndex]);
+        $('#newUl').remove(); 
+        readAllCategories();
+      }
+
+      function removeContent(){
+        var selectIndex = getIndex;
+          switch (selectIndex) {
+              case 1:
+                  $("#demo").find(".coral").remove();
+                  break;
+              case 2: 
+                  $("#demo").find(".aquamarine").remove();
+                  break;
+              case 3: 
+                  $("#demo").find(".chocolate").remove();
+                  break;
+              case 4:
+                  $("#demo").find(".crimson").remove();
+                  break;
+              default:
+                  $("#demo").find(".personalizados").remove();
+          }
+      }
     });
   }
   
