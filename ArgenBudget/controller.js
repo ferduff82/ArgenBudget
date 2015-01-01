@@ -251,7 +251,7 @@ function removeCategories () {
   readAllCategories();
 
   function remove(){
-    $("li").click(function(){
+    $("#newUl li").click(function(){
 
       var getClickValue = $(this).text();
       var getIndex = $(this).index()+1;
@@ -273,12 +273,17 @@ function removeCategories () {
       }
 
       function removeContent(){
-          var getCategoryName = $(".mainCategoryClass").text();
-          var getCategoryNameTrimed = $.trim(getCategoryName);
+          var getCategoryName = $(".mainCategoryClass");
+          for (i=0; i<getCategoryName.length; i++){
+            alert(getCategoryName[i]);
+            var selectCategoryName = getCategoryName[i].text();
+            var getCategoryNameTrimed = $.trim(selectCategoryName);
 
-          if(getClickValue == getCategoryNameTrimed){
+            if(getClickValue == getCategoryNameTrimed){
               $(".borrarCompra").parent().remove();
-          }
+            }
+          };
+
       }
 
     });
