@@ -185,14 +185,16 @@ function newProduct (){
   function remove(event){
     console.dir(event);
     debugger
-    $(this).parent("ul").remove();
-    objects.splice(getProductIndex,7);
-    console.log(objects);
-    alert("Compra borrada");
-    $("#alert").text("Element removido");
-    setTimeout(function(){
-      document.getElementById('alert').innerHTML="";
-    }, 3000);
+    if (confirm("desea borrar la compra?") == true) {
+        $(this).parent("ul").remove();
+        objects.splice(getProductIndex,7);
+        console.log(objects);
+        alert("Compra borrada");
+        $("#alert").text("Element removido");
+        setTimeout(function(){
+          document.getElementById('alert').innerHTML="";
+        }, 3000);
+      }
   }
 
   /* Tools *////////////////////////////
@@ -273,19 +275,31 @@ function removeCategories () {
       }
 
       function removeContent(){
-          var getCategoryName = $(".mainCategoryClass");
-          for (i=0; i<getCategoryName.length; i++){
-            alert(getCategoryName[i]);
-            var selectCategoryName = getCategoryName[i].text();
-            var getCategoryNameTrimed = $.trim(selectCategoryName);
 
-            if(getClickValue == getCategoryNameTrimed){
-              $(".borrarCompra").parent().remove();
+        if(getClickValue == "Supermercado"){
+          $(".coral").remove();
+        }else if(getClickValue == "Impuestos"){
+          $(".aquamarine").remove();
+        }else if(getClickValue == "Salidas"){
+          $(".chocolate").remove();
+        }else if(getClickValue == "Varios"){
+          $(".crimson").remove();
+        }else{
+          alert("llegada A");
+          var getCategoryName = $(".mainCategoryClass");
+
+          for (i=0; i<getCategoryName.length; i++){
+            var selectText = getCategoryName[i].textContent;
+            var getCategoryNameTrimed = $.trim(selectText);
+
+            if(getCategoryNameTrimed == getClickValue){
+              alert(getClickValue);
+              var getClickValueTrimed = $.trim(getClickValue);
+              $("."+getClickValueTrimed+"").parent().parent().remove();
             }
           };
-
+        }
       }
-
     });
   }
   
