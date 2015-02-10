@@ -285,19 +285,8 @@ function removeCategories () {
         }else if(getClickValue == "Varios"){
           $(".crimson").remove();
         }else{
-          alert("llegada A");
-          var getCategoryName = $(".mainCategoryClass");
-
-          for (i=0; i<getCategoryName.length; i++){
-            var selectText = getCategoryName[i].textContent;
-            var getCategoryNameTrimed = $.trim(selectText);
-
-            if(getCategoryNameTrimed == getClickValue){
-              alert(getClickValue);
-              var getClickValueTrimed = $.trim(getClickValue);
-              $("."+getClickValueTrimed+"").parent().parent().remove();
-            }
-          };
+            var getClickValueWithStrings = getClickValue + "  ";
+            $(".mainCategoryClass:contains("+getClickValueWithStrings+")").parent().parent().remove();
         }
       }
     });
