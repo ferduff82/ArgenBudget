@@ -48,6 +48,8 @@ function getValues( product ) {
 /* Instancias del Modelo de Compra*/
 /* Comienzo de la construcción de la compra *//////////////////////////////////////////////////////////////////////////////////////////
 
+var objects = [];
+
 function newProduct (){
 
   var nuevoGasto = new getValues(product);
@@ -69,8 +71,6 @@ function newProduct (){
     }
 
     /* Push into array */
-
-    var objects = [];
 
         objects.push(nuevoGasto.getInfoProduct())
         objects.push(nuevoGasto.getInfoDate())
