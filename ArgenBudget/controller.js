@@ -292,7 +292,7 @@ function readAllCategoriesFilter() {
 	for (i=1; i<c.length; i++){
 	  	var filtername = c[i].childNodes[0].nodeValue;
 	  	txt = txt + "<li>" + filtername + '<input type="radio" name="filter" value=' + filtername + '>' + "</li>";
-	  	selectId.innerHTML = "<ul id='newUl'>" + txt + "</ul>";
+	  	selectId.innerHTML = "<ul id='loadFilter'>" + txt + "</ul>";
 		$('#filter input:radio').click(function(e){ 
 			var getTarget = e.target,
 				getAtribute = $(getTarget).attr("value");
@@ -303,6 +303,11 @@ function readAllCategoriesFilter() {
 	  			$(".mainCategoryClass:contains("+getAttributesValueWithStrings+")").parent().parent().addClass("show");	  		
 	  		}
 		})	
+
+		$('#filter input:radio#noFilter').click(function(e){
+			$(".newPurchase").removeClass("show");
+			$(".newPurchase").removeClass("hide");
+		})
 	};
 }
 readAllCategoriesFilter();
