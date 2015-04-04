@@ -232,6 +232,7 @@ function createCategories (){
 
   /* Remueve los datos del input */
   document.getElementById('categories').value=null;
+  readAllCategoriesFilter();
   }
 }
 
@@ -275,24 +276,31 @@ function removeCategories () {
       }
 
       function removeContent(){
-
-        if(getClickValue == "Supermercado"){
-          $(".coral").remove();
-        }else if(getClickValue == "Impuestos"){
-          $(".aquamarine").remove();
-        }else if(getClickValue == "Salidas"){
-          $(".chocolate").remove();
-        }else if(getClickValue == "Varios"){
-          $(".crimson").remove();
-        }else{
             var getClickValueWithStrings = getClickValue + "  ";
             $(".mainCategoryClass:contains("+getClickValueWithStrings+")").parent().parent().remove();
-        }
       }
     });
   }
   
 }
+
+function readAllCategoriesFilter() {
+	var txt="",
+		c = document.getElementById('category'),
+		selectId = document.getElementById('content-filters');
+
+	for (i=1; i<c.length; i++){
+	  	filtername = c[i].childNodes[0].nodeValue;
+	  	txt = txt + "<li>" + filtername + '<input type="radio" name="vehicle" value=' + filtername + '>' + "</li>";
+	  	selectId.innerHTML = "<ul id='newUl'>" + txt + "</ul>";
+		$('input:radio').click(function(){ 
+			if ($(this).is(':checked')) {
+	  			alert("true");	  		
+	  		}
+		})	
+	};
+}
+readAllCategoriesFilter();
 
 /* Evaluar OnBlur si son números o no */
 

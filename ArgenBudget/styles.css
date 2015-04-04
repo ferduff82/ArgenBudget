@@ -72,3 +72,7 @@ ul{
 #demo ul li:last-child input {
   display: none;
 }
+
+#filter {
+  background-color: rgb(255, 194, 0);
+}
