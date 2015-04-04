@@ -290,12 +290,17 @@ function readAllCategoriesFilter() {
 		selectId = document.getElementById('content-filters');
 
 	for (i=1; i<c.length; i++){
-	  	filtername = c[i].childNodes[0].nodeValue;
-	  	txt = txt + "<li>" + filtername + '<input type="radio" name="vehicle" value=' + filtername + '>' + "</li>";
+	  	var filtername = c[i].childNodes[0].nodeValue;
+	  	txt = txt + "<li>" + filtername + '<input type="radio" name="filter" value=' + filtername + '>' + "</li>";
 	  	selectId.innerHTML = "<ul id='newUl'>" + txt + "</ul>";
-		$('input:radio').click(function(){ 
+		$('#filter input:radio').click(function(e){ 
+			var getTarget = e.target,
+				getAtribute = $(getTarget).attr("value");
+				getAttributesValueWithStrings = getAtribute + "  ";
 			if ($(this).is(':checked')) {
-	  			alert("true");	  		
+				$(".newPurchase").removeClass("show");
+	  			$(".newPurchase").addClass("hide");
+	  			$(".mainCategoryClass:contains("+getAttributesValueWithStrings+")").parent().parent().addClass("show");	  		
 	  		}
 		})	
 	};
