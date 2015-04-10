@@ -40,6 +40,7 @@
 </select>
 <br>
 <div><input id="get-values" type="button" value="Ingrese Gasto" /></div>
+<div><input id="showChart" type="button" data-toggle="modal" data-target="#myChartModal" value="Ver Gráfico" /></div>
 
 <div class="col-sm-3 col-md-3 col-xs-3" id="filter">
   <h4>Filtros</h4>
@@ -52,7 +53,8 @@
 </div>
 <div id="alert"></div>
 
-<!-- Modal -->
+<!-- Modal Remove Categories -->
+
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -60,9 +62,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title" id="myModalLabel">Remove Categories</h4>
       </div>
-      <div class="modal-body" id="removeCategoriesContent">
-        ...
-      </div>
+      <div class="modal-body" id="removeCategoriesContent"></div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" id="removeListener">Close</button>
         <button type="button" class="btn btn-primary">Save changes</button>
@@ -70,6 +70,22 @@
     </div>
   </div>
 </div>
+
+<!-- Modal View Chart -->
+
+<div class="modal fade" id="myChartModal" tabindex="-1" role="dialog" aria-labelledby="chartModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Gasto Mensual</h4>
+      </div>
+      <div class="modal-body" id="removeCategoriesContent"></div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
+</div>
+
 <script src="login.js"></script>
 <script src="controller.js"></script>
 <script src="bootstrap\js\bootstrap.min.js"></script>
