@@ -80,7 +80,7 @@ function newProduct (){
 
         if (nuevoGasto.getInfoKilos() != "<p>Cantidad:  </p>") {
           objects.push(nuevoGasto.getInfoKilos())
-        }
+        };
         if (nuevoGasto.getInfoBrand() != "<p>  </p>") {
           objects.push(nuevoGasto.getInfoBrand())
         };
@@ -276,8 +276,8 @@ function removeCategories () {
       }
 
       function removeContent(){
-            var getClickValueWithStrings = getClickValue + "  ";
-            $(".mainCategoryClass:contains("+getClickValueWithStrings+")").parent().parent().remove();
+        var getClickValueWithStrings = getClickValue + "  ";
+        $(".mainCategoryClass:contains("+getClickValueWithStrings+")").parent().parent().remove();
       }
     });
   }
