@@ -20,27 +20,27 @@ function getValues( product ) {
   } else {
  
     this.getInfoProduct = function () {
-      return "<p>" + this.product + "  </p>";
+      return this.product;
     };
 
     this.getInfoDate = function () {
-      return "<p>" + this.date + "  </p>";
+      return this.date;
     };
 
     this.getInfoPrice = function () {
-      return "<p>$" + this.price + "  </p>";
+      return this.price;
     };
 
     this.getInfoKilos = function () {
-      return "<p>Cantidad:" + this.kilos + "  </p>";
+      return this.kilos;
     };
 
     this.getInfoBrand = function () {
-      return "<p>" + this.brand + "  </p>";
+      return this.brand;
     };
 
     this.getInfoCategory = function () {
-      return "<p>" + this.category + "  </p>";
+      return this.category;
     };
   }
 }
@@ -54,16 +54,16 @@ function newProduct (){
 
     /* Validación de Campos vacíos */
 
-    if(nuevoGasto.getInfoCategory() == "<p>  </p>"){
+    if(nuevoGasto.getInfoCategory() == ""){
       alert('Debe ingresar una categoría de compra')
       return false
-    } else if (nuevoGasto.getInfoProduct() == "<p>  </p>"){
+    } else if (nuevoGasto.getInfoProduct() == ""){
       alert('Debe ingresar un producto')
       return false
-    } else if (nuevoGasto.getInfoDate() == "<p>  </p>"){
+    } else if (nuevoGasto.getInfoDate() == ""){
       alert('Debe ingresar una fecha')
       return false
-    } else if (nuevoGasto.getInfoPrice() == "<p>$  </p>"){
+    } else if (nuevoGasto.getInfoPrice() == ""){
       alert('Debe ingresar un precio')
       return false
     }
@@ -72,20 +72,12 @@ function newProduct (){
 
     	var objects = [];
 
-        objects.push(nuevoGasto.getInfoProduct())
-        objects.push(nuevoGasto.getInfoDate())
-        objects.push(nuevoGasto.getInfoPrice())
-
         /* Don't push if empty values */
 
-        if (nuevoGasto.getInfoKilos() != "<p>Cantidad:  </p>") {
-          objects.push(nuevoGasto.getInfoKilos())
+        if (nuevoGasto.getInfoKilos() != "" && nuevoGasto.getInfoBrand() != "") {
+          objects.push({producto : nuevoGasto.getInfoProduct(), fecha : nuevoGasto.getInfoDate(), precio : nuevoGasto.getInfoPrice(), kilos : nuevoGasto.getInfoKilos(), marca : nuevoGasto.getInfoBrand(), categoria : nuevoGasto.getInfoCategory()})
         };
-        if (nuevoGasto.getInfoBrand() != "<p>  </p>") {
-          objects.push(nuevoGasto.getInfoBrand())
-        };
-
-        objects.push(nuevoGasto.getInfoCategory())
+        localStorage.setItem('test', JSON.stringify(objects));
         alert("Su producto ha sido ingresado con éxito");
         console.log(objects);
 
@@ -132,16 +124,16 @@ function newProduct (){
             createEditItem.setAttribute("class","edit");
             newElem.appendChild(createEditItem);
         
-          if (getCategoryValue == "<p>Supermercado  </p>"){
+          if (getCategoryValue == "Supermercado"){
                 selectUL.classList.add('coral');
                 selectUL.appendChild(newElem);
-          } else if (getCategoryValue == "<p>Impuestos  </p>"){
+          } else if (getCategoryValue == "Impuestos"){
                 selectUL.classList.add('aquamarine');
                 selectUL.appendChild(newElem);
-          } else if (getCategoryValue == "<p>Salidas  </p>"){
+          } else if (getCategoryValue == "Salidas"){
                 selectUL.classList.add('chocolate');
                 selectUL.appendChild(newElem);
-          } else if (getCategoryValue == "<p>Varios  </p>"){
+          } else if (getCategoryValue == "Varios"){
                 selectUL.classList.add('crimson');
                 selectUL.appendChild(newElem);
           } else {
@@ -321,6 +313,9 @@ function showFocus(elem) {
     elem.style.backgroundColor = 'red';
   }
 }
+
+        var items = localStorage.getItem('test');
+        console.log(items);
 
 /* Eventos */
 
