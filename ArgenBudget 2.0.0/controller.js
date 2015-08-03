@@ -63,6 +63,12 @@ function newProduct (){
     } else if (nuevoGasto.getInfoDate() == ""){
       alert('Debe ingresar una fecha')
       return false
+    } else if (nuevoGasto.getInfoKilos() == ""){
+      alert('Debe ingresar la cantidad')
+      return false
+    } else if (nuevoGasto.getInfoBrand() == ""){
+      alert('Debe ingresar la marca')
+      return false
     } else if (nuevoGasto.getInfoPrice() == ""){
       alert('Debe ingresar un precio')
       return false
@@ -70,30 +76,13 @@ function newProduct (){
 
     /* Push into array */
 
-    	var objects = [];
+        var objects = { producto : nuevoGasto.getInfoProduct(), fecha : nuevoGasto.getInfoDate(), precio : nuevoGasto.getInfoPrice(), kilos : nuevoGasto.getInfoKilos(), marca : nuevoGasto.getInfoBrand(), categoria : nuevoGasto.getInfoCategory() }
 
-        /* Don't push if empty values */
-
-        if (nuevoGasto.getInfoKilos() != "" && nuevoGasto.getInfoBrand() != "") {
-          objects.push({producto : nuevoGasto.getInfoProduct(), fecha : nuevoGasto.getInfoDate(), precio : nuevoGasto.getInfoPrice(), kilos : nuevoGasto.getInfoKilos(), marca : nuevoGasto.getInfoBrand(), categoria : nuevoGasto.getInfoCategory()})
-        };
         localStorage.setItem('test', JSON.stringify(objects));
         alert("Su producto ha sido ingresado con éxito");
         console.log(objects);
 
-        /* Re-search on array to asign color */
-
-        if (nuevoGasto.getInfoKilos() == "Cantidad:   " && nuevoGasto.getInfoBrand() == "  ") {
-          var getCategoryValue = objects[3];
-        }else if (nuevoGasto.getInfoKilos() == "Cantidad:   " && nuevoGasto.getInfoBrand() != "  ") {
-          var getCategoryValue = objects[4];
-        }else if (nuevoGasto.getInfoKilos() != "Cantidad:   " && nuevoGasto.getInfoBrand() == "  ") {
-          var getCategoryValue = objects[4];
-        }else{
-          var getCategoryValue = objects[5];
-        }
-
-        var getProductIndex = objects.indexOf(nuevoGasto.getInfoProduct());
+        //var getProductIndex = objects.indexOf(objects[0].producto);
 
         var createUl = document.createElement('ul');
         var getDemo = document.getElementById("demo");
@@ -112,37 +101,42 @@ function newProduct (){
 
         /* Loop array with for with background color change on category select */
 
-        text = "";
+        var text = "";
 
-        for (var i = 0; i < objects.length; i++) {
+        for (var i in objects) {
 
-        var newElem = document.createElement("li");
-            newElem.innerHTML = text = objects[i];
-        var createEditItem = document.createElement('input');
-            createEditItem.setAttribute("type","button");
-            createEditItem.setAttribute("value","Editar");
-            createEditItem.setAttribute("class","edit");
-            newElem.appendChild(createEditItem);
-        
-          if (getCategoryValue == "Supermercado"){
+          if( objects.hasOwnProperty(i) ) {
+
+            var newElem = document.createElement("li");
+                newElem.innerHTML = text = objects[i];
+            var createEditItem = document.createElement('input');
+                createEditItem.setAttribute("type","button");
+                createEditItem.setAttribute("value","Editar");
+                createEditItem.setAttribute("class","edit");
+                newElem.appendChild(createEditItem);
+
+            var getCategoryValue = objects.categoria;
+          
+            if (getCategoryValue == "Supermercado"){
                 selectUL.classList.add('coral');
                 selectUL.appendChild(newElem);
-          } else if (getCategoryValue == "Impuestos"){
+            } else if (getCategoryValue == "Impuestos"){
                 selectUL.classList.add('aquamarine');
                 selectUL.appendChild(newElem);
-          } else if (getCategoryValue == "Salidas"){
+            } else if (getCategoryValue == "Salidas"){
                 selectUL.classList.add('chocolate');
                 selectUL.appendChild(newElem);
-          } else if (getCategoryValue == "Varios"){
+            } else if (getCategoryValue == "Varios"){
                 selectUL.classList.add('crimson');
                 selectUL.appendChild(newElem);
-          } else {
+            } else {
                 selectUL.classList.add('personalizados')
                 selectUL.appendChild(newElem);
+            }
           }
         }
 
-        $(selectUL).find("li:last-child p").addClass("mainCategoryClass");
+        $(selectUL).find("li:last-child").addClass("mainCategoryClass");
         $(selectUL).addClass("newPurchase");
 
         /* Remueve los datos del input */
@@ -179,7 +173,7 @@ function newProduct (){
     debugger
     if (confirm("desea borrar la compra?") == true) {
         $(this).parent("ul").remove();
-        objects.splice(getProductIndex,7);
+        //objects.splice(getProductIndex,7);
         console.log(objects);
         alert("Compra borrada");
         $("#alert").text("Element removido");
@@ -288,7 +282,7 @@ function readAllCategoriesFilter() {
 		$('#filter input:radio').click(function(e){ 
 			var getTarget = e.target,
 				getAtribute = $(getTarget).attr("value");
-				getAttributesValueWithStrings = getAtribute + "  ";
+				getAttributesValueWithStrings = getAtribute;
 			if ($(this).is(':checked')) {
 				$(".newPurchase").removeClass("show");
 	  			$(".newPurchase").addClass("hide");
@@ -314,8 +308,8 @@ function showFocus(elem) {
   }
 }
 
-        var items = localStorage.getItem('test');
-        console.log(items);
+var items = localStorage.getItem('test');
+console.log(items);
 
 /* Eventos */
 
