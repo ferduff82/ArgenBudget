@@ -48,104 +48,129 @@ function getValues( product ) {
 /* Instancias del Modelo de Compra*/
 /* Comienzo de la construcción de la compra *//////////////////////////////////////////////////////////////////////////////////////////
 
+var storePurchase = [];
+
 function newProduct (){
 
   var nuevoGasto = new getValues(product);
 
-    /* Validación de Campos vacíos */
+  /* Validación de Campos vacíos */
 
-    if(nuevoGasto.getInfoCategory() == ""){
-      alert('Debe ingresar una categoría de compra')
-      return false
-    } else if (nuevoGasto.getInfoProduct() == ""){
-      alert('Debe ingresar un producto')
-      return false
-    } else if (nuevoGasto.getInfoDate() == ""){
-      alert('Debe ingresar una fecha')
-      return false
-    } else if (nuevoGasto.getInfoKilos() == ""){
-      alert('Debe ingresar la cantidad')
-      return false
-    } else if (nuevoGasto.getInfoBrand() == ""){
-      alert('Debe ingresar la marca')
-      return false
-    } else if (nuevoGasto.getInfoPrice() == ""){
-      alert('Debe ingresar un precio')
-      return false
-    }
+  if(nuevoGasto.getInfoCategory() == ""){
+    alert('Debe ingresar una categoría de compra')
+    return false
+  } else if (nuevoGasto.getInfoProduct() == ""){
+    alert('Debe ingresar un producto')
+    return false
+  } else if (nuevoGasto.getInfoDate() == ""){
+    alert('Debe ingresar una fecha')
+    return false
+  } else if (nuevoGasto.getInfoKilos() == ""){
+    alert('Debe ingresar la cantidad')
+    return false
+  } else if (nuevoGasto.getInfoBrand() == ""){
+    alert('Debe ingresar la marca')
+    return false
+  } else if (nuevoGasto.getInfoPrice() == ""){
+    alert('Debe ingresar un precio')
+    return false
+  }
 
-    /* Push into array */
+  /* Push into array */
 
-        var objects = { producto : nuevoGasto.getInfoProduct(), fecha : nuevoGasto.getInfoDate(), precio : nuevoGasto.getInfoPrice(), kilos : nuevoGasto.getInfoKilos(), marca : nuevoGasto.getInfoBrand(), categoria : nuevoGasto.getInfoCategory() }
+  var objects = { purchaseId : makeid(), producto : nuevoGasto.getInfoProduct(), fecha : nuevoGasto.getInfoDate(), precio : nuevoGasto.getInfoPrice(), kilos : nuevoGasto.getInfoKilos(), marca : nuevoGasto.getInfoBrand(), categoria : nuevoGasto.getInfoCategory() }
 
-        localStorage.setItem('test', JSON.stringify(objects));
-        alert("Su producto ha sido ingresado con éxito");
-        console.log(objects);
+  storePurchase.push(objects);
 
-        //var getProductIndex = objects.indexOf(objects[0].producto);
+  /* Handle Local Storage */
 
-        var createUl = document.createElement('ul');
-        var getDemo = document.getElementById("demo");
-        var createRemovePurchaseButton = document.createElement('input');
-            createRemovePurchaseButton.setAttribute("type","button");
-            createRemovePurchaseButton.setAttribute("value","Borrar Compra");
-        var randomId = makeid();
-            createRemovePurchaseButton.setAttribute("id",randomId);
-            createRemovePurchaseButton.setAttribute("class","borrarCompra");
-        var getNumber = makeid();
-            createUl.setAttribute("id",getNumber);
-            getDemo.appendChild(createUl);
-            createUl.appendChild(createRemovePurchaseButton);
+  var local = localStorage.getItem('test');
 
-        var selectUL = document.getElementById(getNumber);
+  // To get data from LocalStorage and parse to Json.
+  var localtoJson = JSON.parse( "[" + local + "]");
+  console.log(localtoJson);
 
-        /* Loop array with for with background color change on category select */
+  var localStatus;
 
-        var text = "";
+  if(local != null) {
+    localStatus = JSON.stringify(objects) + "," + local;
+  } else {
+    localStatus = JSON.stringify(objects);
+  }
 
-        for (var i in objects) {
+  localStorage.setItem('test', localStatus);
+  alert("Su producto ha sido ingresado con éxito");
 
-          if( objects.hasOwnProperty(i) ) {
+  /* Create Purchase */
+  //var getProductIndex = objects.indexOf(objects[0].producto);
 
-            var newElem = document.createElement("li");
-                newElem.innerHTML = text = objects[i];
-            var createEditItem = document.createElement('input');
-                createEditItem.setAttribute("type","button");
-                createEditItem.setAttribute("value","Editar");
-                createEditItem.setAttribute("class","edit");
-                newElem.appendChild(createEditItem);
+  var createUl = document.createElement('ul');
+  var getDemo = document.getElementById("demo");
+  var createRemovePurchaseButton = document.createElement('input');
+      createRemovePurchaseButton.setAttribute("type","button");
+      createRemovePurchaseButton.setAttribute("value","Borrar Compra");
+  var randomId = objects.purchaseId;
+      createRemovePurchaseButton.setAttribute("id",randomId);
+      createRemovePurchaseButton.setAttribute("class","borrarCompra");
+  var getNumber = objects.purchaseId;
+      createUl.setAttribute("id",getNumber);
+      getDemo.appendChild(createUl);
+      createUl.appendChild(createRemovePurchaseButton);
 
-            var getCategoryValue = objects.categoria;
-          
-            if (getCategoryValue == "Supermercado"){
-                selectUL.classList.add('coral');
-                selectUL.appendChild(newElem);
-            } else if (getCategoryValue == "Impuestos"){
-                selectUL.classList.add('aquamarine');
-                selectUL.appendChild(newElem);
-            } else if (getCategoryValue == "Salidas"){
-                selectUL.classList.add('chocolate');
-                selectUL.appendChild(newElem);
-            } else if (getCategoryValue == "Varios"){
-                selectUL.classList.add('crimson');
-                selectUL.appendChild(newElem);
-            } else {
-                selectUL.classList.add('personalizados')
-                selectUL.appendChild(newElem);
-            }
-          }
+  var selectUL = document.getElementById(getNumber);
+
+  /* Loop array with for with background color change on category select */
+
+  var text = "";
+
+  var lastItem = storePurchase.pop(); 
+
+  for (var i in lastItem) {
+
+    if (i != "purchaseId") {
+
+      if ( lastItem.hasOwnProperty(i) ) {
+
+        var newElem = document.createElement("li");
+            newElem.innerHTML = text = lastItem[i];
+        var createEditItem = document.createElement('input');
+            createEditItem.setAttribute("type","button");
+            createEditItem.setAttribute("value","Editar");
+            createEditItem.setAttribute("class","edit");
+            newElem.appendChild(createEditItem);
+
+        var getCategoryValue = lastItem.categoria;
+      
+        if (getCategoryValue == "Supermercado"){
+            selectUL.classList.add('coral');
+            selectUL.appendChild(newElem);
+        } else if (getCategoryValue == "Impuestos"){
+            selectUL.classList.add('aquamarine');
+            selectUL.appendChild(newElem);
+        } else if (getCategoryValue == "Salidas"){
+            selectUL.classList.add('chocolate');
+            selectUL.appendChild(newElem);
+        } else if (getCategoryValue == "Varios"){
+            selectUL.classList.add('crimson');
+            selectUL.appendChild(newElem);
+        } else {
+            selectUL.classList.add('personalizados')
+            selectUL.appendChild(newElem);
         }
+      }
+    }
+  }
 
-        $(selectUL).find("li:last-child").addClass("mainCategoryClass");
-        $(selectUL).addClass("newPurchase");
+  $(selectUL).find("li:last-child").addClass("mainCategoryClass");
+  $(selectUL).addClass("newPurchase");
 
-        /* Remueve los datos del input */
+  /* Remueve los datos del input */
 
-        document.getElementById('product').value=null;
-        document.getElementById('date').value=null;
-        document.getElementById('price').value=null;
-        document.getElementById('kilos').value=null;
-        document.getElementById('brand').value=null;
+  document.getElementById('product').value=null;
+  document.getElementById('date').value=null;
+  document.getElementById('price').value=null;
+  document.getElementById('kilos').value=null;
+  document.getElementById('brand').value=null;
 
   /* Eventos dentro de final de función */
 
@@ -190,7 +215,7 @@ function newProduct (){
   function makeid() {
     var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    for( var i=0; i < 5; i++ )
+    for( var i=0; i < 8; i++ )
       text += possible.charAt(Math.floor(Math.random() * possible.length));
     return text;
   }
@@ -259,6 +284,7 @@ function removeCategories () {
         select.removeChild(select[getIndex]);
         $('#newUl').remove(); 
         readAllCategories();
+        readAllCategoriesFilter();
       }
 
       function removeContent(){
@@ -281,12 +307,11 @@ function readAllCategoriesFilter() {
 	  	selectId.innerHTML = "<ul id='loadFilter'>" + txt + "</ul>";
 		$('#filter input:radio').click(function(e){ 
 			var getTarget = e.target,
-				getAtribute = $(getTarget).attr("value");
-				getAttributesValueWithStrings = getAtribute;
+			getAtribute = $(getTarget).attr("value");
 			if ($(this).is(':checked')) {
 				$(".newPurchase").removeClass("show");
 	  			$(".newPurchase").addClass("hide");
-	  			$(".mainCategoryClass:contains("+getAttributesValueWithStrings+")").parent().parent().addClass("show");	  		
+	  			$(".mainCategoryClass:contains(" + getAtribute + ")").parent().addClass("show");	  		
 	  		}
 		})	
 
@@ -307,9 +332,6 @@ function showFocus(elem) {
     elem.style.backgroundColor = 'red';
   }
 }
-
-var items = localStorage.getItem('test');
-console.log(items);
 
 /* Eventos */
 
