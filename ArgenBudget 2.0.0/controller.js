@@ -78,7 +78,14 @@ function newProduct (){
 
   /* Push into array */
 
-  var objects = { purchaseId : makeid(), producto : nuevoGasto.getInfoProduct(), fecha : nuevoGasto.getInfoDate(), precio : nuevoGasto.getInfoPrice(), kilos : nuevoGasto.getInfoKilos(), marca : nuevoGasto.getInfoBrand(), categoria : nuevoGasto.getInfoCategory() }
+  var objects = { purchaseId : makeid(), 
+                  producto : nuevoGasto.getInfoProduct(), 
+                  fecha : nuevoGasto.getInfoDate(), 
+                  precio : nuevoGasto.getInfoPrice(), 
+                  kilos : nuevoGasto.getInfoKilos(), 
+                  marca : nuevoGasto.getInfoBrand(), 
+                  categoria : nuevoGasto.getInfoCategory() 
+                }
 
   storePurchase.push(objects);
 
@@ -102,6 +109,7 @@ function newProduct (){
   alert("Su producto ha sido ingresado con éxito");
 
   /* Create Purchase */
+    
   //var getProductIndex = objects.indexOf(objects[0].producto);
 
   var createUl = document.createElement('ul');
