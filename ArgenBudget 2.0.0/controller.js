@@ -1,4 +1,13 @@
 
+/* Chequear si hay datos en localStorage */
+
+var localS = localStorage.getItem('test'),
+    localtoJson = JSON.parse( "[" + localS + "]");
+
+for (var i in localtoJson) {
+  purchaseCreation(localtoJson[i].purchaseId,localtoJson[i]); 
+}
+
 
 /* Modelo de Creación de Compra */
 
@@ -91,13 +100,8 @@ function newProduct (){
 
   /* Handle Local Storage */
 
-  var local = localStorage.getItem('test');
-
-  // To get data from LocalStorage and parse to Json.
-  var localtoJson = JSON.parse( "[" + local + "]");
-  console.log(localtoJson);
-
-  var localStatus;
+  var local = localStorage.getItem('test'),
+      localStatus;
 
   if(local != null) {
     localStatus = JSON.stringify(objects) + "," + local;
@@ -108,7 +112,13 @@ function newProduct (){
   localStorage.setItem('test', localStatus);
   alert("Su producto ha sido ingresado con éxito");
 
-  /* Create Purchase */
+  purchaseCreation(objects.purchaseId);
+
+}
+
+/* Create Purchase */
+
+function purchaseCreation(purchaseId,readCache) { 
     
   //var getProductIndex = objects.indexOf(objects[0].producto);
 
@@ -117,10 +127,10 @@ function newProduct (){
   var createRemovePurchaseButton = document.createElement('input');
       createRemovePurchaseButton.setAttribute("type","button");
       createRemovePurchaseButton.setAttribute("value","Borrar Compra");
-  var randomId = objects.purchaseId;
+  var randomId = purchaseId;
       createRemovePurchaseButton.setAttribute("id",randomId);
       createRemovePurchaseButton.setAttribute("class","borrarCompra");
-  var getNumber = objects.purchaseId;
+  var getNumber = purchaseId;
       createUl.setAttribute("id",getNumber);
       getDemo.appendChild(createUl);
       createUl.appendChild(createRemovePurchaseButton);
@@ -131,7 +141,11 @@ function newProduct (){
 
   var text = "";
 
-  var lastItem = storePurchase.pop(); 
+  if (readCache) {
+    var lastItem = readCache;
+  } else {
+    var lastItem = storePurchase.pop();
+  }
 
   for (var i in lastItem) {
 
@@ -215,22 +229,21 @@ function newProduct (){
         }, 3000);
       }
   }
-
-  /* Tools *////////////////////////////
-
-  /* Genera String aleatorias de 5 caracteres */
-
-  function makeid() {
-    var text = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    for( var i=0; i < 8; i++ )
-      text += possible.charAt(Math.floor(Math.random() * possible.length));
-    return text;
-  }
-
 }
 
 /* Fin de la construcción de la compra *//////////////////////////////////////////////////////////////////////////////////////////
+
+/* Tools *////////////////////////////
+
+/* Genera String aleatorias de 5 caracteres */
+
+function makeid() {
+  var text = "";
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  for( var i=0; i < 8; i++ )
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  return text;
+}
 
 /* Agregar categorías */
 
