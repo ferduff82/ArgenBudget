@@ -87,7 +87,8 @@ function newProduct (){
 
   /* Push into array */
 
-  var objects = { purchaseId : makeid(), 
+  var objects = { 
+                  purchaseId : makeid(), 
                   producto : nuevoGasto.getInfoProduct(), 
                   fecha : nuevoGasto.getInfoDate(), 
                   precio : nuevoGasto.getInfoPrice(), 
@@ -120,8 +121,6 @@ function newProduct (){
 
 function purchaseCreation(purchaseId,readCache) { 
     
-  //var getProductIndex = objects.indexOf(objects[0].producto);
-
   var createUl = document.createElement('ul');
   var getDemo = document.getElementById("demo");
   var createRemovePurchaseButton = document.createElement('input');
@@ -203,32 +202,29 @@ function purchaseCreation(purchaseId,readCache) {
     if (edit != null) {
       $(this).prev().empty();
       var getIndex = $(this).parent().index();
-      objects[getIndex] = edit;
-      $(this).prev().prepend(objects[getIndex]);
-      alert("Valor " + objects[getIndex] + " cambiado con éxito");
+      console.log(lastItem);
+      lastItem[getIndex] = edit;
+      $(this).prev().prepend(lastItem[getIndex]);
+      alert("Valor " + lastItem[getIndex] + " cambiado con éxito");
     }
 
   });
 
   /* Borrar Compra */
 
-  var borrarCompra = document.getElementById(randomId);
-  borrarCompra.addEventListener("click", remove, false);
-
-  function remove(event){
+  $("#demo ul #" + randomId + "").click(function(event){
     console.dir(event);
     debugger
     if (confirm("desea borrar la compra?") == true) {
-        $(this).parent("ul").remove();
-        //objects.splice(getProductIndex,7);
-        console.log(objects);
-        alert("Compra borrada");
-        $("#alert").text("Element removido");
-        setTimeout(function(){
-          document.getElementById('alert').innerHTML="";
-        }, 3000);
-      }
-  }
+      $(this).parent("ul").remove();
+      alert("Compra borrada");
+      $("#alert").text("Element removido");
+      setTimeout(function(){
+        document.getElementById('alert').innerHTML="";
+      }, 3000);
+    }
+  })
+
 }
 
 /* Fin de la construcción de la compra *//////////////////////////////////////////////////////////////////////////////////////////
@@ -242,7 +238,7 @@ function makeid() {
   var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   for( var i=0; i < 8; i++ )
     text += possible.charAt(Math.floor(Math.random() * possible.length));
-  return text;
+    return text;
 }
 
 /* Agregar categorías */
