@@ -1,13 +1,16 @@
 
 /* Chequear si hay datos en localStorage */
 
-var localS = localStorage.getItem('test'),
-    localtoJson = JSON.parse( "[" + localS + "]");
+var localS = localStorage.getItem('test');
 
-for (var i in localtoJson) {
-  purchaseCreation(localtoJson[i].purchaseId,localtoJson[i]); 
+if (localS) {
+
+  localtoJson = JSON.parse( "[" + localS + "]");
+
+  for (var i in localtoJson) {
+    purchaseCreation(localtoJson[i].purchaseId,localtoJson[i]); 
+  }
 }
-
 
 /* Modelo de Creación de Compra */
 
