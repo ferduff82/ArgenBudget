@@ -57,6 +57,10 @@ ul{
   margin-left: -23px;
 }
 
+.dataValue {
+  display: inline;
+}
+
 #editItem{
   margin-left:30px;
 }

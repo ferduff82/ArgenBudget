@@ -57,7 +57,7 @@ function getValues( product ) {
   }
 }
 
-/* Instancias del Modelo de Compra*/
+/* Instancias del Modelo de Compra */
 /* Comienzo de la construcción de la compra *//////////////////////////////////////////////////////////////////////////////////////////
 
 var storePurchase = [];
@@ -155,9 +155,14 @@ function purchaseCreation(purchaseId,readCache) {
 
       if ( lastItem.hasOwnProperty(i) ) {
 
-        var newElem = document.createElement("li");
-            newElem.innerHTML = text = lastItem[i];
-        var createEditItem = document.createElement('input');
+        var newElem = document.createElement("li"),
+            createDiv = document.createElement("div"),
+            createEditItem = document.createElement('input');
+
+            newElem.appendChild(createDiv);
+            createDiv.innerHTML = text = lastItem[i];
+            createDiv.setAttribute("class","dataValue");
+
             createEditItem.setAttribute("type","button");
             createEditItem.setAttribute("value","Editar");
             createEditItem.setAttribute("class","edit");
@@ -203,11 +208,12 @@ function purchaseCreation(purchaseId,readCache) {
   $('ul#'+getNumber+'>li>input.edit').click(function(){
     var edit = prompt("Ingrese el cambio de valor");
     if (edit != null) {
-      $(this).prev().empty();
+      $(this).parent().find(".dataValue").empty().append(edit);
       var getIndex = $(this).parent().index();
+      
       console.log(lastItem);
       lastItem[getIndex] = edit;
-      $(this).prev().prepend(lastItem[getIndex]);
+
       alert("Valor " + lastItem[getIndex] + " cambiado con éxito");
     }
 
