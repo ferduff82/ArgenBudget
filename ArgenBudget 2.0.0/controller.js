@@ -183,7 +183,7 @@ function purchaseCreation(purchaseId,readCache) {
             selectUL.classList.add('crimson');
             selectUL.appendChild(newElem);
         } else {
-            selectUL.classList.add('personalizados')
+            selectUL.classList.add('personalizados');
             selectUL.appendChild(newElem);
         }
       }
@@ -205,16 +205,32 @@ function purchaseCreation(purchaseId,readCache) {
 
   /* Editar Items */
 
-  $('ul#'+getNumber+'>li>input.edit').click(function(){
+  $('ul#' + getNumber + '>li>input.edit').click(function(){
     var edit = prompt("Ingrese el cambio de valor");
     if (edit != null) {
       $(this).parent().find(".dataValue").empty().append(edit);
       var getIndex = $(this).parent().index();
-      
-      console.log(lastItem);
-      lastItem[getIndex] = edit;
 
-      alert("Valor " + lastItem[getIndex] + " cambiado con éxito");
+      switch (getIndex) {
+        case 1:
+          lastItem['producto'] = edit;
+          break;
+        case 2:
+          lastItem['fecha'] = edit;
+          break;
+        case 3:
+          lastItem['precio'] = edit;
+          break;
+        case 4:
+          lastItem['kilos'] = edit;
+          break;
+        case 5:
+          lastItem['marca'] = edit;
+          break;
+      }
+
+      alert("Valor cambiado con éxito");
+      console.log(lastItem);
     }
 
   });
@@ -232,7 +248,7 @@ function purchaseCreation(purchaseId,readCache) {
         document.getElementById('alert').innerHTML="";
       }, 3000);
     }
-  })
+  });
 
 }
 
@@ -284,7 +300,7 @@ function removeCategories () {
 
     for (i=1; i<c.length; i++){
       txt = txt + "<li>" + c[i].childNodes[0].nodeValue + "</li>";
-    };
+    }
     selectId.innerHTML = "<ul id='newUl'>" + txt + "</ul>";
     remove();
   }
@@ -321,6 +337,8 @@ function removeCategories () {
   }
   
 }
+
+/* Leer categorías */
 
 function readAllCategoriesFilter() {
 	var txt="",
