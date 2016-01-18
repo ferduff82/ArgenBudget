@@ -231,6 +231,13 @@ function purchaseCreation(purchaseId,readCache) {
 
       alert("Valor cambiado con éxito");
       console.log(lastItem);
+
+      localtoJ = JSON.parse( "[" + localS + "]");
+
+      for (var i in localtoJ) {
+        var tos = JSON.stringify(localtoJ[i]);
+        console.log(tos);
+      }
     }
 
   });
