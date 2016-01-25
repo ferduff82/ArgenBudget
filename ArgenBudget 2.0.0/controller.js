@@ -236,6 +236,7 @@ function purchaseCreation(purchaseId,readCache) {
 
       for (var i in localtoJ) {
         var tos = JSON.stringify(localtoJ[i]);
+        console.log(localtoJ[i].purchaseId);
         console.log(tos);
       }
     }
