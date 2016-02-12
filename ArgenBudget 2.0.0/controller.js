@@ -232,49 +232,43 @@ function purchaseCreation(purchaseId,readCache) {
       alert("Valor cambiado con éxito");
       console.log(lastItem);
 
-      /* Guardar cambios en LocalStorage
+      var getLi = $(this).parent().index();
+      console.log(getLi);
+
+      var getUl = $(this).parent().parent().index();
+      console.log(getUl);
+
+      /* Guardar cambios en LocalStorage */
 
       localtoJ = JSON.parse( "[" + localS + "]" );
 
-      var indexPurchase,
-          indexEdit,
-          dataObject;
+      switch (getLi) {
+        case 1:
+          dataObject = "producto";   
+          console.log(dataObject);
+          break;
+        case 2:
+          dataObject = "fecha";
+          console.log(dataObject);
+          break;
+        case 3:
+          dataObject = "precio";
+          console.log(dataObject);
+          break;
+        case 4:
+          dataObject = "kilos";
+          console.log(dataObject);
+          break;
+        case 5:
+          dataObject = "marca";
+          console.log(dataObject);
+          break;
+      }
 
-      $("#demo ul#" + getNumber).click(function(){
-        console.log($(this).index());
-        indexPurchase = $(this).index();
-      })
+      console.log(localtoJ[getUl]);
+      console.log(localtoJ[getUl].dataObject);
 
-      $("#demo ul#" + getNumber + " li").click(function(){
-        console.log($(this).index());
-        indexEdit = $(this).index();
-
-        switch (indexEdit) {
-          case 1:
-            dataObject = "producto";   
-            console.log(dataObject);
-            break;
-          case 2:
-            dataObject = "fecha";
-            console.log(dataObject);
-            break;
-          case 3:
-            dataObject = "precio";
-            console.log(dataObject);
-            break;
-          case 4:
-            dataObject = "kilos";
-            console.log(dataObject);
-            break;
-          case 5:
-            dataObject = "marca";
-            console.log(dataObject);
-            break;
-        }
-      })
-
-      console.log(localtoJ[indexPurchase]);
-      console.log(localtoJ[indexPurchase].dataObject);
+      /*
 
       for (var i in localtoJ) {
         var tos = JSON.stringify(localtoJ[i]);
