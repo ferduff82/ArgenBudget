@@ -209,77 +209,39 @@ function purchaseCreation(purchaseId,readCache) {
     var edit = prompt("Ingrese el cambio de valor");
     if (edit != null) {
       $(this).parent().find(".dataValue").empty().append(edit);
-      var getIndex = $(this).parent().index();
+      var getIndex = $(this).parent().index(),
+          getUl = $(this).parent().parent().index(),
+          localtoJ = JSON.parse( "[" + localS + "]" );
+
+      /* Cambiando valor en sesión actual + Guardar cambios en LocalStorage */
 
       switch (getIndex) {
         case 1:
           lastItem['producto'] = edit;
+          console.log(localtoJ[getUl].producto);
           break;
         case 2:
           lastItem['fecha'] = edit;
+          console.log(localtoJ[getUl].fecha);
           break;
         case 3:
           lastItem['precio'] = edit;
+          console.log(localtoJ[getUl].precio);
           break;
         case 4:
           lastItem['kilos'] = edit;
+          console.log(localtoJ[getUl].kilos);
           break;
         case 5:
           lastItem['marca'] = edit;
+          console.log(localtoJ[getUl].marca);
           break;
       }
 
-      alert("Valor cambiado con éxito");
       console.log(lastItem);
+      alert("Valor cambiado con éxito");
 
-      var getLi = $(this).parent().index();
-      console.log(getLi);
-
-      var getUl = $(this).parent().parent().index();
-      console.log(getUl);
-
-      /* Guardar cambios en LocalStorage */
-
-      localtoJ = JSON.parse( "[" + localS + "]" );
-
-      switch (getLi) {
-        case 1:
-          dataObject = "producto";   
-          console.log(dataObject);
-          break;
-        case 2:
-          dataObject = "fecha";
-          console.log(dataObject);
-          break;
-        case 3:
-          dataObject = "precio";
-          console.log(dataObject);
-          break;
-        case 4:
-          dataObject = "kilos";
-          console.log(dataObject);
-          break;
-        case 5:
-          dataObject = "marca";
-          console.log(dataObject);
-          break;
-      }
-
-      console.log(localtoJ[getUl]);
-      console.log(localtoJ[getUl].dataObject);
-
-      /*
-
-      for (var i in localtoJ) {
-        var tos = JSON.stringify(localtoJ[i]);
-        console.log(localtoJ[i].purchaseId);
-        console.log(purchaseId);
-        console.log(tos);
-      }
-
-      */
-
-    }
+     }
 
   });
 
@@ -402,9 +364,9 @@ function readAllCategoriesFilter() {
 			getAtribute = $(getTarget).attr("value");
 			if ($(this).is(':checked')) {
 				$(".newPurchase").removeClass("show");
-	  			$(".newPurchase").addClass("hide");
-	  			$(".mainCategoryClass:contains(" + getAtribute + ")").parent().addClass("show");	  		
-	  		}
+  			$(".newPurchase").addClass("hide");
+  			$(".mainCategoryClass:contains(" + getAtribute + ")").parent().addClass("show");	  		
+	  	}
 		})	
 
 		$('#filter input:radio#noFilter').click(function(e){
