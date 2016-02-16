@@ -218,31 +218,40 @@ function purchaseCreation(purchaseId,readCache) {
       switch (getIndex) {
         case 1:
           lastItem['producto'] = edit;
-          console.log(localtoJ[getUl].producto);
+          localtoJ[getUl].producto = edit;
+          editStorage(localtoJ);
           break;
         case 2:
           lastItem['fecha'] = edit;
-          console.log(localtoJ[getUl].fecha);
+          localtoJ[getUl].fecha = edit;
+          editStorage(localtoJ);
           break;
         case 3:
           lastItem['precio'] = edit;
-          console.log(localtoJ[getUl].precio);
+          localtoJ[getUl].precio = edit;
+          editStorage(localtoJ);
           break;
         case 4:
           lastItem['kilos'] = edit;
-          console.log(localtoJ[getUl].kilos);
+          localtoJ[getUl].kilos = edit;
+          editStorage(localtoJ);
           break;
         case 5:
           lastItem['marca'] = edit;
-          console.log(localtoJ[getUl].marca);
+          localtoJ[getUl].marca = edit;
+          editStorage(localtoJ);
           break;
       }
 
-      console.log(lastItem);
+      function editStorage (localtoJ) {
+          var toStringEdit = JSON.stringify(localtoJ);
+          toStringEdit = toStringEdit.replace("[", "");
+          toStringEdit = toStringEdit.replace("]", "");
+          localStorage.setItem('test', toStringEdit);
+      }
+
       alert("Valor cambiado con éxito");
-
      }
-
   });
 
   /* Borrar Compra */
