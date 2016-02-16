@@ -247,6 +247,7 @@ function purchaseCreation(purchaseId,readCache) {
           var toStringEdit = JSON.stringify(localtoJ);
           toStringEdit = toStringEdit.replace("[", "");
           toStringEdit = toStringEdit.replace("]", "");
+
           localStorage.setItem('test', toStringEdit);
       }
 
@@ -258,9 +259,20 @@ function purchaseCreation(purchaseId,readCache) {
 
   $("#demo ul #" + randomId + "").click(function(event){
     console.dir(event);
+    var ulErase = $(this).parent().index(),
+        localtoJforErase = JSON.parse( "[" + localS + "]" );
     debugger
     if (confirm("desea borrar la compra?") == true) {
       $(this).parent("ul").remove();
+
+      localtoJforErase.splice(ulErase, 1);
+
+      var toStringErase = JSON.stringify(localtoJforErase);
+      toStringErase = toStringErase.replace("[", "");
+      toStringErase = toStringErase.replace("]", "");
+
+      localStorage.setItem('test', toStringErase);
+
       alert("Compra borrada");
       $("#alert").text("Element removido");
       setTimeout(function(){
