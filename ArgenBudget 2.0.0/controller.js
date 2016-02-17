@@ -60,7 +60,8 @@ function getValues( product ) {
 /* Instancias del Modelo de Compra */
 /* Comienzo de la construcción de la compra *//////////////////////////////////////////////////////////////////////////////////////////
 
-var storePurchase = [];
+var storePurchase = [],
+    totalPurchases = [];
 
 function newProduct (){
 
@@ -123,7 +124,7 @@ function newProduct (){
 /* Create Purchase */
 
 function purchaseCreation(purchaseId,readCache) { 
-    
+
   var createUl = document.createElement('ul');
   var getDemo = document.getElementById("demo");
   var createRemovePurchaseButton = document.createElement('input');
@@ -146,6 +147,9 @@ function purchaseCreation(purchaseId,readCache) {
   if (readCache) {
     var lastItem = readCache;
   } else {
+    console.log(storePurchase[0]);
+    totalPurchases.push(storePurchase[0]);
+    console.log(totalPurchases);
     var lastItem = storePurchase.pop();
   }
 
@@ -261,9 +265,13 @@ function purchaseCreation(purchaseId,readCache) {
     console.dir(event);
     var ulErase = $(this).parent().index(),
         localtoJforErase = JSON.parse( "[" + localS + "]" );
-    debugger
+    //debugger
     if (confirm("desea borrar la compra?") == true) {
       $(this).parent("ul").remove();
+
+      console.log(totalPurchases);
+      console.log(ulErase);
+      console.log(localtoJforErase);
 
       localtoJforErase.splice(ulErase, 1);
 
