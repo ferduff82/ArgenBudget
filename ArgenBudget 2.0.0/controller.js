@@ -1,5 +1,9 @@
+/* Almacenar datos en instancia de compra */
 
-/* Chequear si hay datos en localStorage */
+var storePurchase = [],
+    totalPurchases = [];
+
+/* Chequear si hay datos en localStorage al cargar APP */
 
 var localS = localStorage.getItem('test');
 
@@ -60,9 +64,6 @@ function getValues( product ) {
 /* Instancias del Modelo de Compra */
 /* Comienzo de la construcción de la compra *//////////////////////////////////////////////////////////////////////////////////////////
 
-var storePurchase = [],
-    totalPurchases = [];
-
 function newProduct (){
 
   var nuevoGasto = new getValues(product);
@@ -108,7 +109,10 @@ function newProduct (){
   var local = localStorage.getItem('test'),
       localStatus;
 
-  if(local != null) {
+  // Determina si hay algo en el DOM y de esa forma se sabe si localstorage está vacío pero no NULL.
+  var checkLast = $("#demo").children().length == 0;
+
+  if(local != null && checkLast == false) {
     localStatus = JSON.stringify(objects) + "," + local;
   } else {
     localStatus = JSON.stringify(objects);
@@ -146,10 +150,9 @@ function purchaseCreation(purchaseId,readCache) {
 
   if (readCache) {
     var lastItem = readCache;
+    totalPurchases.push(readCache);
   } else {
-    console.log(storePurchase[0]);
     totalPurchases.push(storePurchase[0]);
-    console.log(totalPurchases);
     var lastItem = storePurchase.pop();
   }
 
@@ -214,41 +217,40 @@ function purchaseCreation(purchaseId,readCache) {
     if (edit != null) {
       $(this).parent().find(".dataValue").empty().append(edit);
       var getIndex = $(this).parent().index(),
-          getUl = $(this).parent().parent().index(),
-          localtoJ = JSON.parse( "[" + localS + "]" );
+          getUl = $(this).parent().parent().index();
 
       /* Cambiando valor en sesión actual + Guardar cambios en LocalStorage */
 
       switch (getIndex) {
         case 1:
           lastItem['producto'] = edit;
-          localtoJ[getUl].producto = edit;
-          editStorage(localtoJ);
+          totalPurchases[getUl].producto = edit;
+          editStorage(totalPurchases);
           break;
         case 2:
           lastItem['fecha'] = edit;
-          localtoJ[getUl].fecha = edit;
-          editStorage(localtoJ);
+          totalPurchases[getUl].fecha = edit;
+          editStorage(totalPurchases);
           break;
         case 3:
           lastItem['precio'] = edit;
-          localtoJ[getUl].precio = edit;
-          editStorage(localtoJ);
+          totalPurchases[getUl].precio = edit;
+          editStorage(totalPurchases);
           break;
         case 4:
           lastItem['kilos'] = edit;
-          localtoJ[getUl].kilos = edit;
-          editStorage(localtoJ);
+          totalPurchases[getUl].kilos = edit;
+          editStorage(totalPurchases);
           break;
         case 5:
           lastItem['marca'] = edit;
-          localtoJ[getUl].marca = edit;
-          editStorage(localtoJ);
+          totalPurchases[getUl].marca = edit;
+          editStorage(totalPurchases);
           break;
       }
 
-      function editStorage (localtoJ) {
-          var toStringEdit = JSON.stringify(localtoJ);
+      function editStorage (totalPurchases) {
+          var toStringEdit = JSON.stringify(totalPurchases);
           toStringEdit = toStringEdit.replace("[", "");
           toStringEdit = toStringEdit.replace("]", "");
 
@@ -263,19 +265,14 @@ function purchaseCreation(purchaseId,readCache) {
 
   $("#demo ul #" + randomId + "").click(function(event){
     console.dir(event);
-    var ulErase = $(this).parent().index(),
-        localtoJforErase = JSON.parse( "[" + localS + "]" );
+    var ulErase = $(this).parent().index();
     //debugger
     if (confirm("desea borrar la compra?") == true) {
       $(this).parent("ul").remove();
 
-      console.log(totalPurchases);
-      console.log(ulErase);
-      console.log(localtoJforErase);
+      totalPurchases.splice(ulErase, 1);
 
-      localtoJforErase.splice(ulErase, 1);
-
-      var toStringErase = JSON.stringify(localtoJforErase);
+      var toStringErase = JSON.stringify(totalPurchases);
       toStringErase = toStringErase.replace("[", "");
       toStringErase = toStringErase.replace("]", "");
 
