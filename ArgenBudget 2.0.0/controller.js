@@ -1,4 +1,4 @@
-/* Almacenar datos en instancia de compra */
+/* Almacenar datos en Collections */
 
 var storePurchase = [],
     totalPurchases = [];
