@@ -279,9 +279,6 @@ function purchaseCreation(purchaseId,readCache) {
       localStorage.setItem('test', toStringErase);
 
       alert("Compra borrada");
-      setTimeout(function(){
-        document.getElementById('alert').innerHTML="";
-      }, 3000);
       emptyExpenses();
     }
     cantidadDeCompras();
