@@ -279,13 +279,16 @@ function purchaseCreation(purchaseId,readCache) {
       localStorage.setItem('test', toStringErase);
 
       alert("Compra borrada");
-      $("#alert").text("Element removido");
       setTimeout(function(){
         document.getElementById('alert').innerHTML="";
       }, 3000);
+      emptyExpenses();
     }
+    cantidadDeCompras();
   });
 
+  cantidadDeCompras();
+  emptyExpenses();
 }
 
 /* Fin de la construcción de la compra *//////////////////////////////////////////////////////////////////////////////////////////
@@ -403,6 +406,24 @@ function readAllCategoriesFilter() {
 }
 readAllCategoriesFilter();
 
+/* Determinar la cantidad de compras */
+
+function cantidadDeCompras() {
+  var purchaseLength = $('.newPurchase').length;
+  $('.lengthOfPurchase').html('Has realizado ' + purchaseLength + ' compras');
+}
+
+/* Mostrar si no hay compras */
+
+function emptyExpenses() {
+    var anyExpense = $('.newPurchase').length;
+  if (anyExpense) {
+    $('#noExpences').addClass('hide');
+  } else {
+    $('#noExpences').removeClass('hide');
+  }
+}
+
 /* Evaluar OnBlur si son números o no */
 
 function showFocus(elem) {
@@ -417,11 +438,11 @@ function showFocus(elem) {
 
 document.getElementById('get-values').onclick = newProduct;
 document.getElementById('get-categories').onclick = createCategories;
-document.getElementById('get-users').onclick = newLogin;
 document.getElementById('removeCategories').onclick = removeCategories;
 
-/* Evento datepicker */
+/* Ready */
 
-$( function() {
+$(document).ready(function(){
   $( "#date" ).datepicker();
-});
+  emptyExpenses();
+})
